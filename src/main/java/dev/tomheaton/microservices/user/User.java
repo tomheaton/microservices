@@ -1,14 +1,24 @@
 package dev.tomheaton.microservices.user;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+@Entity
+@Table(name = "user")
 public class User {
 
+    @Id
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private long id;
     private String firstName;
     private String lastName;
     private String email;
     private LocalDate birthday;
+
+    public User() {
+
+    }
 
     public User(long id, String firstName, String lastName, String email, LocalDate birthday) {
         this.id = id;
