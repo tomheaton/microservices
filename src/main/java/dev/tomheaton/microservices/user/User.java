@@ -28,9 +28,10 @@ public class User {
         this.birthday = birthday;
     }
 
-    public User(String firstName, String lastName, LocalDate birthday) {
+    public User(String firstName, String lastName, String email, LocalDate birthday) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.birthday = birthday;
     }
 
