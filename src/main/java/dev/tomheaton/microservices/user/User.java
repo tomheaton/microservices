@@ -3,6 +3,8 @@ package dev.tomheaton.microservices.user;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -15,6 +17,8 @@ public class User {
     private String lastName;
     private String email;
     private LocalDate birthday;
+    @Transient
+    private Integer age;
 
     public User() {
 
@@ -73,5 +77,13 @@ public class User {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public Integer getAge() {
+        return Period.between(this.birthday, LocalDate.now()).getYears();
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }
