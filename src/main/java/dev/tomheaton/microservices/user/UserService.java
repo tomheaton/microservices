@@ -74,12 +74,8 @@ public class UserService {
     public User getUser(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
 
-//        if (userOptional.isEmpty()) {
-//            throw new IllegalStateException("User with id " + userId + " does not exist.");
-//        }
-
         if (userOptional.isEmpty()) {
-            return null;
+            throw new IllegalStateException("User with id " + userId + " does not exist.");
         }
 
         return userOptional.get();
