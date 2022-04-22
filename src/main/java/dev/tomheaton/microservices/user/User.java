@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_table")
 public class User {
 
     @Id
