@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -71,5 +69,19 @@ public class UserService {
         /*if (birthday != null && birthday.length() > 0 && !user.getBirthday().equals(birthday)) {
             user.setBirthday(LocalDate.parse(birthday));
         }*/
+    }
+
+    public User getUser(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+//        if (userOptional.isEmpty()) {
+//            throw new IllegalStateException("User with id " + userId + " does not exist.");
+//        }
+
+        if (userOptional.isEmpty()) {
+            return null;
+        }
+
+        return userOptional.get();
     }
 }
