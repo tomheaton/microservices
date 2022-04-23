@@ -1,6 +1,8 @@
 package dev.tomheaton.microservices.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,13 @@ public class UserController {
     }
 
     @PostMapping
-    public void registerNewUser(@RequestBody User user) {
-        userService.addNewUser(user);
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<User> addUserWithReturn(@RequestBody User user) {
+        return new ResponseEntity<>(userService.addUserWithReturn(user), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{userId}")
@@ -44,6 +51,6 @@ public class UserController {
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String birthday
     ) {
-        userService.updateStudent(userId, firstName, lastName, email, birthday);
+        userService.updateUser(userId, firstName, lastName, email, birthday);
     }
 }

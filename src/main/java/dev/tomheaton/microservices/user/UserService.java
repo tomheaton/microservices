@@ -21,14 +21,37 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
+    public User getUser(Long userId) {
+        return userRepository.findById(userId).orElseThrow(
+                () -> new IllegalStateException("User with id " + userId + " does not exist.")
+        );
+    }
+
+    public void addUser(User user) {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
+
+        // TODO: check user is fully constructed
+        if (user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null || user.getBirthday() == null) {
+            throw new IllegalStateException("Invalid user object.");
+        }
 
         if (userOptional.isPresent()) {
             throw new IllegalStateException("Email already exists.");
         }
 
         userRepository.save(user);
+    }
+
+    public User addUserWithReturn(User user) {
+        Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
+
+        // TODO: check user is fully constructed
+
+        if (userOptional.isPresent()) {
+            throw new IllegalStateException("Email already exists.");
+        }
+
+        return userRepository.save(user);
     }
 
     public void deleteUser(Long userId) {
@@ -42,7 +65,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateStudent(Long userId, String firstName, String lastName, String email, String birthday) {
+    public void updateUser(Long userId, String firstName, String lastName, String email, String birthday) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalStateException("User with id " + userId + " does not exist.")
         );
@@ -69,15 +92,5 @@ public class UserService {
         /*if (birthday != null && birthday.length() > 0 && !user.getBirthday().equals(birthday)) {
             user.setBirthday(LocalDate.parse(birthday));
         }*/
-    }
-
-    public User getUser(Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-
-        if (userOptional.isEmpty()) {
-            throw new IllegalStateException("User with id " + userId + " does not exist.");
-        }
-
-        return userOptional.get();
     }
 }
