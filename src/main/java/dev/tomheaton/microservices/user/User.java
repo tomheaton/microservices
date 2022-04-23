@@ -5,31 +5,38 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
-@Entity
-@Table(name = "user_table")
+@Entity(name = "User")
+@Table(
+        name = "user_table",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "user_email_unique", columnNames = "email")
+        }
+)
 public class User {
 
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @Column(name = "id", updatable = false)
     private long id;
+
+    @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     private String lastName;
+
+    @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     private String email;
+
+    @Column(name = "birthday", nullable = false, columnDefinition = "DATE")
     private LocalDate birthday;
+
     @Transient
     private Integer age;
 
     public User() {
 
-    }
-
-    public User(long id, String firstName, String lastName, String email, LocalDate birthday) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.birthday = birthday;
     }
 
     public User(String firstName, String lastName, String email, LocalDate birthday) {
