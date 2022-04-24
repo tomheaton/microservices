@@ -32,6 +32,9 @@ public class User {
     @Column(name = "birthday", nullable = false, columnDefinition = "DATE")
     private LocalDate birthday;
 
+    @Column(name = "password", nullable = false, columnDefinition = "TEXT")
+    private String password;
+
     @Transient
     private Integer age;
 
@@ -39,11 +42,12 @@ public class User {
 
     }
 
-    public User(String firstName, String lastName, String email, LocalDate birthday) {
+    public User(String firstName, String lastName, String email, LocalDate birthday, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.birthday = birthday;
+        this.password = password;
     }
 
     public long getId() {
@@ -84,6 +88,14 @@ public class User {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getAge() {

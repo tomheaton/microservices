@@ -30,8 +30,7 @@ public class UserService {
     public void addUser(User user) {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
 
-        // TODO: check user is fully constructed
-        if (user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null || user.getBirthday() == null) {
+        if (user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null || user.getBirthday() == null || user.getPassword() == null) {
             throw new IllegalStateException("Invalid user object.");
         }
 
@@ -45,7 +44,9 @@ public class UserService {
     public User addUserWithReturn(User user) {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
 
-        // TODO: check user is fully constructed
+        if (user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null || user.getBirthday() == null || user.getPassword() == null) {
+            throw new IllegalStateException("Invalid user object.");
+        }
 
         if (userOptional.isPresent()) {
             throw new IllegalStateException("Email already exists.");
@@ -65,7 +66,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Long userId, String firstName, String lastName, String email, String birthday) {
+    public void updateUser(Long userId, String firstName, String lastName, String email, String birthday, String password) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalStateException("User with id " + userId + " does not exist.")
         );
@@ -88,9 +89,13 @@ public class UserService {
             user.setEmail(email);
         }
 
-        // TODO: fix date parsing.
+        // TODO: implement birthday date parsing
         /*if (birthday != null && birthday.length() > 0 && !user.getBirthday().equals(birthday)) {
             user.setBirthday(LocalDate.parse(birthday));
         }*/
+
+        if (password != null && password.length() > 0 && !user.getPassword().equals(password)) {
+            user.setPassword(password);
+        }
     }
 }

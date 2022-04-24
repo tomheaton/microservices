@@ -14,7 +14,7 @@ public class UserConfig {
     @Bean
     public CommandLineRunner commandLineRunner(UserRepository userRepository) {
         return args -> {
-            User tom = new User("Tom", "Heaton", "tom@tomheaton.dev", LocalDate.of(2002, Month.SEPTEMBER, 30));
+            User tom = new User("Tom", "Heaton", "tom@tomheaton.dev", LocalDate.of(2002, Month.SEPTEMBER, 30), "password");
 
             userRepository.saveAll(
                     List.of(tom)
