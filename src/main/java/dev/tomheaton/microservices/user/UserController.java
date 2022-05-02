@@ -18,14 +18,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    /*@GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
+    }*/
+
+    @GetMapping
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @GetMapping(path = "{userId}")
+    /*@GetMapping(path = "{userId}")
     public User getUser(@PathVariable("userId") Long userId)  {
         return userService.getUser(userId);
+    }*/
+
+    @GetMapping(path = "{userId}")
+    public ResponseEntity<User> getUser(@PathVariable("userId") Long userId)  {
+        return ResponseEntity.ok().body(userService.getUser(userId));
     }
 
     @PostMapping
