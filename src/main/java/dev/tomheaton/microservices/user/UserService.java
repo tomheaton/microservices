@@ -23,7 +23,7 @@ public class UserService {
 
     public User getUser(Long userId) {
         return userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("User with id " + userId + " does not exist.")
+            () -> new IllegalStateException("User with id " + userId + " does not exist.")
         );
     }
 
@@ -68,7 +68,7 @@ public class UserService {
     @Transactional
     public void updateUser(Long userId, String firstName, String lastName, String email, String birthday, String password) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("User with id " + userId + " does not exist.")
+            () -> new IllegalStateException("User with id " + userId + " does not exist.")
         );
 
         if (firstName != null && firstName.length() > 0 && !user.getFirstName().equals(firstName)) {

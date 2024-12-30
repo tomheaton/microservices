@@ -7,10 +7,10 @@ import java.time.Period;
 
 @Entity(name = "User")
 @Table(
-        name = "user_table",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "user_email_unique", columnNames = "email")
-        }
+    name = "user_table",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "user_email_unique", columnNames = "email")
+    }
 )
 public class User {
 

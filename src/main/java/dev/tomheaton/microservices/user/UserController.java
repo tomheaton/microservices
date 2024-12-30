@@ -34,7 +34,7 @@ public class UserController {
     }*/
 
     @GetMapping(path = "{userId}")
-    public ResponseEntity<User> getUser(@PathVariable("userId") Long userId)  {
+    public ResponseEntity<User> getUser(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok().body(userService.getUser(userId));
     }
 
@@ -55,12 +55,12 @@ public class UserController {
 
     @PutMapping(path = "{userId}")
     public void updateUser(
-            @PathVariable("userId") Long userId,
-            @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String lastName,
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) String birthday,
-            @RequestParam(required = false) String password
+        @PathVariable("userId") Long userId,
+        @RequestParam(required = false) String firstName,
+        @RequestParam(required = false) String lastName,
+        @RequestParam(required = false) String email,
+        @RequestParam(required = false) String birthday,
+        @RequestParam(required = false) String password
     ) {
         userService.updateUser(userId, firstName, lastName, email, birthday, password);
     }

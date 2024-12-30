@@ -17,7 +17,7 @@ public class UserConfig {
             User tom = new User("Tom", "Heaton", "tom@tomheaton.dev", LocalDate.of(2002, Month.SEPTEMBER, 30), "password");
 
             userRepository.saveAll(
-                    List.of(tom)
+                List.of(tom)
             );
         };
     }
