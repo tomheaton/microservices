@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  microservices-db:
+    image: postgres:latest
+    container_name: microservices-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: springbootdb
+    volumes:
+      - microservices-db-data:/var/lib/postgresql/data
+
+volumes:
+  microservices-db-data:
