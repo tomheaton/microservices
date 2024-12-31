@@ -18,50 +18,41 @@ public class UserController {
         this.userService = userService;
     }
 
-    /*@GetMapping
-    public List<User> getUsers() {
-        return this.userService.getUsers();
-    }*/
-
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok().body(this.userService.getUsers());
     }
 
-    /*@GetMapping(path = "{userId}")
-    public User getUser(@PathVariable("userId") Long userId)  {
-        return this.userService.getUser(userId);
-    }*/
-
-    @GetMapping(path = "{userId}")
-    public ResponseEntity<User> getUser(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok().body(this.userService.getUser(userId));
-    }
-
-    @PostMapping
+    @PostMapping("/")
     public void addUser(@RequestBody User user) {
         this.userService.addUser(user);
     }
 
-    @PostMapping("/add")
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(this.userService.getUser(id));
+    }
+
+    @PostMapping("/")
     public ResponseEntity<User> addUserWithReturn(@RequestBody User user) {
         return new ResponseEntity<>(this.userService.addUserWithReturn(user), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "{userId}")
-    public void deleteUser(@PathVariable("userId") Long userId) {
-        this.userService.deleteUser(userId);
-    }
-
-    @PutMapping(path = "{userId}")
+    @PutMapping(path = "/{id}")
     public void updateUser(
-        @PathVariable("userId") Long userId,
+        @PathVariable("id") Long id,
         @RequestParam(required = false) String firstName,
         @RequestParam(required = false) String lastName,
         @RequestParam(required = false) String email,
         @RequestParam(required = false) String birthday,
         @RequestParam(required = false) String password
     ) {
-        this.userService.updateUser(userId, firstName, lastName, email, birthday, password);
+        this.userService.updateUser(id, firstName, lastName, email, birthday, password);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        this.userService.deleteUser(id);
     }
 }

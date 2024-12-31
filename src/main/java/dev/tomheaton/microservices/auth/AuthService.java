@@ -24,8 +24,4 @@ public class AuthService {
 
     public void logoutUser(User user) {
     }
-
-    public User registerWithReturn(User user) {
-        return this.userRepository.save(user);
-    }
 }

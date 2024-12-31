@@ -21,9 +21,9 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public User getUser(Long userId) {
-        return this.userRepository.findById(userId).orElseThrow(
-            () -> new IllegalStateException("User with id " + userId + " does not exist.")
+    public User getUser(Long id) {
+        return this.userRepository.findById(id).orElseThrow(
+            () -> new IllegalStateException("User with id " + id + " does not exist.")
         );
     }
 
@@ -55,20 +55,20 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public void deleteUser(Long userId) {
-        boolean exists = this.userRepository.existsById(userId);
+    public void deleteUser(Long id) {
+        boolean exists = this.userRepository.existsById(id);
 
         if (!exists) {
-            throw new IllegalStateException("User with id " + userId + " does not exist.");
+            throw new IllegalStateException("User with id " + id + " does not exist.");
         }
 
-        this.userRepository.deleteById(userId);
+        this.userRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateUser(Long userId, String firstName, String lastName, String email, String birthday, String password) {
-        User user = this.userRepository.findById(userId).orElseThrow(
-            () -> new IllegalStateException("User with id " + userId + " does not exist.")
+    public void updateUser(Long id, String firstName, String lastName, String email, String birthday, String password) {
+        User user = this.userRepository.findById(id).orElseThrow(
+            () -> new IllegalStateException("User with id " + id + " does not exist.")
         );
 
         if (firstName != null && !firstName.isEmpty() && !user.getFirstName().equals(firstName)) {

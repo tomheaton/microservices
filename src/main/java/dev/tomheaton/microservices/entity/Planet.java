@@ -49,10 +49,12 @@ public class Planet {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!(obj instanceof Planet planet))
+        }
+        if (!(obj instanceof Planet planet)) {
             return false;
+        }
         return Objects.equals(this.id, planet.id) && Objects.equals(this.name, planet.name) && Objects.equals(this.designation, planet.designation);
     }
 

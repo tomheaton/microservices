@@ -49,10 +49,12 @@ public class Mission {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!(obj instanceof Mission mission))
+        }
+        if (!(obj instanceof Mission mission)) {
             return false;
+        }
         return Objects.equals(this.id, mission.id) && Objects.equals(this.name, mission.name) && Objects.equals(this.role, mission.role);
     }
 

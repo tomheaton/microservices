@@ -2,7 +2,6 @@ package dev.tomheaton.microservices.auth;
 
 import dev.tomheaton.microservices.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +21,6 @@ public class AuthController {
     @PostMapping("/register")
     public void register(@RequestBody User user) {
         this.authService.registerUser(user);
-    }
-
-    @PostMapping("/register/return")
-    public ResponseEntity<User> registerWithReturn(@RequestBody User user) {
-        User createdUser = this.authService.registerWithReturn(user);
-        return ResponseEntity.ok().body(createdUser);
     }
 
     @PostMapping("/login")

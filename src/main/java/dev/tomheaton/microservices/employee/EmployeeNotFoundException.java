@@ -1,4 +1,4 @@
-package dev.tomheaton.microservices.exception;
+package dev.tomheaton.microservices.employee;
 
 public class EmployeeNotFoundException extends RuntimeException {
 

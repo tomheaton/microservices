@@ -1,13 +1,11 @@
-package dev.tomheaton.microservices.controller;
+package dev.tomheaton.microservices.employee;
 
-import dev.tomheaton.microservices.entity.Employee;
-import dev.tomheaton.microservices.exception.EmployeeNotFoundException;
-import dev.tomheaton.microservices.repository.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/employee")
 public class EmployeeController {
 
     private final EmployeeRepository repository;
@@ -16,23 +14,23 @@ public class EmployeeController {
         this.repository = repository;
     }
 
-    @GetMapping("/employees")
-    List<Employee> all() {
+    @GetMapping("/")
+    public List<Employee> getEmployees() {
         return this.repository.findAll();
     }
 
-    @PostMapping("/employees")
-    Employee newEmployee(@RequestBody Employee employee) {
+    @PostMapping("/")
+    public Employee addEmployee(@RequestBody Employee employee) {
         return this.repository.save(employee);
     }
 
-    @GetMapping("/employees/{id}")
-    Employee one(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public Employee getEmployee(@PathVariable Long id) {
         return this.repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    @PutMapping("/employees/{id}")
-    Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+    @PutMapping("/{id}")
+    public Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
         return this.repository.findById(id).map(employee -> {
             employee.setName(newEmployee.getName());
             employee.setRole(newEmployee.getRole());
@@ -43,8 +41,8 @@ public class EmployeeController {
         });
     }
 
-    @DeleteMapping("/employees/{id}")
-    void deleteEmployee(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable Long id) {
         this.repository.deleteById(id);
     }
 }

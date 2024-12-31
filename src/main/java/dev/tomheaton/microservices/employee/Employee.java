@@ -1,4 +1,4 @@
-package dev.tomheaton.microservices.entity;
+package dev.tomheaton.microservices.employee;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,10 +49,12 @@ public class Employee {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!(obj instanceof Employee employee))
+        }
+        if (!(obj instanceof Employee employee)) {
             return false;
+        }
         return Objects.equals(this.id, employee.id) && Objects.equals(this.name, employee.name) && Objects.equals(this.role, employee.role);
     }
 

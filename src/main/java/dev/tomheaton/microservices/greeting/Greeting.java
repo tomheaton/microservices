@@ -1,4 +1,4 @@
-package dev.tomheaton.microservices.misc;
+package dev.tomheaton.microservices.greeting;
 
 public class Greeting {
 
