@@ -1,0 +1,44 @@
+### Create a new user
+POST http://localhost:8080/api/v1/user
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@gmail.com",
+    "birthday": "2002-10-01"
+}
+
+### Create a new user
+POST http://localhost:8080/api/v1/user
+Content-Type: application/json
+
+{
+    "firstName": "Archie",
+    "lastName": "Smith",
+    "email": "archie.smith@example.com",
+    "birthday": "1948-09-01"
+}
+
+### Create a new user
+POST http://localhost:8080/api/v1/user
+Content-Type: application/json
+
+{
+    "firstName": "Lucy",
+    "lastName": "Hudson",
+    "email": "lucy.hudson@example.com",
+    "birthday": "1996-03-15"
+}
+
+### Get user by ID
+GET http://localhost:8080/api/v1/user/1
+
+### Update user by ID
+PUT http://localhost:8080/api/v1/user/2?email=john.a.smith@gmail.com
+
+### Update user by ID
+PUT http://localhost:8080/api/v1/user/1?firstName=Thomas
+
+### Delete user by ID
+DELETE http://localhost:8080/api/v1/user/3

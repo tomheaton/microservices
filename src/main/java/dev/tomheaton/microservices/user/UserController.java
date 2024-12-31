@@ -1,7 +1,6 @@
 package dev.tomheaton.microservices.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,30 +17,32 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok().body(this.userService.getUsers());
+        List<User> users = this.userService.getUsers();
+
+        return ResponseEntity.ok().body(users);
     }
 
-    @PostMapping("/")
-    public void addUser(@RequestBody User user) {
+    @PostMapping
+    public ResponseEntity<Void> addUser(@RequestBody User user) {
+        // TODO: return the created user
         this.userService.addUser(user);
+
+        return ResponseEntity.noContent().build();
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(this.userService.getUser(id));
-    }
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        User user = this.userService.getUser(id);
 
-    @PostMapping("/")
-    public ResponseEntity<User> addUserWithReturn(@RequestBody User user) {
-        return new ResponseEntity<>(this.userService.addUserWithReturn(user), HttpStatus.OK);
+        return ResponseEntity.ok().body(user);
     }
 
     @PutMapping(path = "/{id}")
-    public void updateUser(
-        @PathVariable("id") Long id,
+    public ResponseEntity<Void> updateUser(
+        @PathVariable Long id,
         @RequestParam(required = false) String firstName,
         @RequestParam(required = false) String lastName,
         @RequestParam(required = false) String email,
@@ -49,10 +50,14 @@ public class UserController {
         @RequestParam(required = false) String password
     ) {
         this.userService.updateUser(id, firstName, lastName, email, birthday, password);
+
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         this.userService.deleteUser(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -41,30 +41,6 @@ public class UserService {
         this.userRepository.save(user);
     }
 
-    public User addUserWithReturn(User user) {
-        Optional<User> userOptional = this.userRepository.findUserByEmail(user.getEmail());
-
-        if (user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null || user.getBirthday() == null || user.getPassword() == null) {
-            throw new IllegalStateException("Invalid user object.");
-        }
-
-        if (userOptional.isPresent()) {
-            throw new IllegalStateException("Email already exists.");
-        }
-
-        return this.userRepository.save(user);
-    }
-
-    public void deleteUser(Long id) {
-        boolean exists = this.userRepository.existsById(id);
-
-        if (!exists) {
-            throw new IllegalStateException("User with id " + id + " does not exist.");
-        }
-
-        this.userRepository.deleteById(id);
-    }
-
     @Transactional
     public void updateUser(Long id, String firstName, String lastName, String email, String birthday, String password) {
         User user = this.userRepository.findById(id).orElseThrow(
@@ -97,5 +73,17 @@ public class UserService {
         if (password != null && !password.isEmpty() && !user.getPassword().equals(password)) {
             user.setPassword(password);
         }
+
+        this.userRepository.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        boolean exists = this.userRepository.existsById(id);
+
+        if (!exists) {
+            throw new IllegalStateException("User with id " + id + " does not exist.");
+        }
+
+        this.userRepository.deleteById(id);
     }
 }
