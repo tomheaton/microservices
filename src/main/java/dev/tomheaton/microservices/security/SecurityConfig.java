@@ -28,26 +28,32 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        return http
             .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                    .anyRequest().authenticated()
+                .requestMatchers("/", "/home", "index", "/css/*", "/js/*").permitAll()
+                .anyRequest().authenticated()
             )
-            .httpBasic(Customizer.withDefaults());
-        return http.build();
+            .formLogin(form -> form
+                .loginPage("/login").permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/").permitAll()
+            )
+            .httpBasic(Customizer.withDefaults())
+            .build();
     }
 
     @Bean
     protected UserDetailsService userDetailsService() {
         UserDetails tomUser = User.builder()
             .username("tomheaton")
-            .password(passwordEncoder.encode("password"))
+            .password(this.passwordEncoder.encode("password"))
             .roles("USER")
             .build();
 
         UserDetails adminUser = User.builder()
             .username("admin")
-            .password(passwordEncoder.encode("admin"))
+            .password(this.passwordEncoder.encode("admin"))
             .roles("ADMIN")
             .build();
 

@@ -16,18 +16,16 @@ public class AuthService {
     }
 
     public void registerUser(User user) {
-        userRepository.save(user);
+        this.userRepository.save(user);
     }
 
     public void loginUser(User user) {
-
     }
 
     public void logoutUser(User user) {
-
     }
 
     public User registerWithReturn(User user) {
-        return userRepository.save(user);
+        return this.userRepository.save(user);
     }
 }

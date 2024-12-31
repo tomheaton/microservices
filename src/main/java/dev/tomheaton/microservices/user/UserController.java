@@ -20,37 +20,37 @@ public class UserController {
 
     /*@GetMapping
     public List<User> getUsers() {
-        return userService.getUsers();
+        return this.userService.getUsers();
     }*/
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok().body(userService.getUsers());
+        return ResponseEntity.ok().body(this.userService.getUsers());
     }
 
     /*@GetMapping(path = "{userId}")
     public User getUser(@PathVariable("userId") Long userId)  {
-        return userService.getUser(userId);
+        return this.userService.getUser(userId);
     }*/
 
     @GetMapping(path = "{userId}")
     public ResponseEntity<User> getUser(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok().body(userService.getUser(userId));
+        return ResponseEntity.ok().body(this.userService.getUser(userId));
     }
 
     @PostMapping
     public void addUser(@RequestBody User user) {
-        userService.addUser(user);
+        this.userService.addUser(user);
     }
 
     @PostMapping("/add")
     public ResponseEntity<User> addUserWithReturn(@RequestBody User user) {
-        return new ResponseEntity<>(userService.addUserWithReturn(user), HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.addUserWithReturn(user), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
-        userService.deleteUser(userId);
+        this.userService.deleteUser(userId);
     }
 
     @PutMapping(path = "{userId}")
@@ -62,6 +62,6 @@ public class UserController {
         @RequestParam(required = false) String birthday,
         @RequestParam(required = false) String password
     ) {
-        userService.updateUser(userId, firstName, lastName, email, birthday, password);
+        this.userService.updateUser(userId, firstName, lastName, email, birthday, password);
     }
 }

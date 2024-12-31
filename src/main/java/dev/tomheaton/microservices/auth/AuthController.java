@@ -21,12 +21,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public void register(@RequestBody User user) {
-        authService.registerUser(user);
+        this.authService.registerUser(user);
     }
 
     @PostMapping("/register/return")
     public ResponseEntity<User> registerWithReturn(@RequestBody User user) {
-        User createdUser = authService.registerWithReturn(user);
+        User createdUser = this.authService.registerWithReturn(user);
         return ResponseEntity.ok().body(createdUser);
     }
 
@@ -34,13 +34,13 @@ public class AuthController {
     public void login() {
         User user = new User();
 
-        authService.loginUser(user);
+        this.authService.loginUser(user);
     }
 
     @PostMapping("/logout")
     public void logout() {
         User user = new User();
 
-        authService.logoutUser(user);
+        this.authService.logoutUser(user);
     }
 }
