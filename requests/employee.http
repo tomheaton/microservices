@@ -20,17 +20,16 @@ PATCH http://localhost:8080/api/v1/employee/3
 Content-Type: application/json
 
 {
-    "name": "Samantha Carter",
     "role": "Colonel"
 }
 
 ### Replace employee by ID
-PUT http://localhost:8080/api/v1/employee/3
+PUT http://localhost:8080/api/v1/employee/4
 Content-Type: application/json
 
 {
-    "name": "Samantha Carter",
-    "role": "Colonel"
+    "name": "Teal'c",
+    "role": "Jaffa"
 }
 
 ### Delete employee by ID
