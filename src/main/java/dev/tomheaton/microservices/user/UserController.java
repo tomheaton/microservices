@@ -10,53 +10,52 @@ import java.util.List;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-    private final UserService userService;
+    private final UserService service;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers() {
-        List<User> users = this.userService.getUsers();
+        List<User> users = this.service.getUsers();
 
         return ResponseEntity.ok().body(users);
     }
 
     @PostMapping
-    public ResponseEntity<Void> addUser(@RequestBody User user) {
-        // TODO: return the created user
-        this.userService.addUser(user);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User addedUser = this.service.addUser(user);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(addedUser);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        User user = this.userService.getUser(id);
+        User user = this.service.getUser(id);
 
         return ResponseEntity.ok().body(user);
     }
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<Void> updateUser(
-        @PathVariable Long id,
-        @RequestParam(required = false) String firstName,
-        @RequestParam(required = false) String lastName,
-        @RequestParam(required = false) String email,
-        @RequestParam(required = false) String birthday,
-        @RequestParam(required = false) String password
-    ) {
-        this.userService.updateUser(id, firstName, lastName, email, birthday, password);
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = this.service.updateUser(id, user);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(updatedUser);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @PutMapping("/{id}")
+    public ResponseEntity<User> replaceUser(@PathVariable Long id, @RequestBody User user) {
+        User replacedUser = this.service.replaceUser(id, user);
+
+        return ResponseEntity.ok().body(replacedUser);
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-        this.userService.deleteUser(id);
+        this.service.deleteUser(id);
 
         return ResponseEntity.noContent().build();
     }

@@ -1,5 +1,6 @@
 package dev.tomheaton.microservices.employee;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,50 +10,51 @@ import java.util.List;
 @RequestMapping("/api/v1/employee")
 public class EmployeeController {
 
-    private final EmployeeRepository repository;
+    private final EmployeeService service;
 
-    public EmployeeController(EmployeeRepository repository) {
-        this.repository = repository;
+    @Autowired
+    public EmployeeController(EmployeeService service) {
+        this.service = service;
     }
 
     @GetMapping
     public ResponseEntity<List<Employee>> getEmployees() {
-        List<Employee> employees = this.repository.findAll();
+        List<Employee> employees = this.service.getEmployees();
 
         return ResponseEntity.ok().body(employees);
     }
 
     @PostMapping
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
-        Employee newEmployee = this.repository.save(employee);
+        Employee addedEmployee = this.service.addEmployee(employee);
 
-        return ResponseEntity.ok().body(newEmployee);
+        return ResponseEntity.ok().body(addedEmployee);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
-        Employee employee = this.repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
+        Employee employee = this.service.getEmployee(id);
 
         return ResponseEntity.ok().body(employee);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Employee> replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-        Employee updatedEmployee = this.repository.findById(id).map(employee -> {
-            employee.setName(newEmployee.getName());
-            employee.setRole(newEmployee.getRole());
-            return this.repository.save(employee);
-        }).orElseGet(() -> {
-            newEmployee.setId(id);
-            return this.repository.save(newEmployee);
-        });
+    @PatchMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        Employee updatedEmployee = this.service.updateEmployee(id, employee);
 
         return ResponseEntity.ok().body(updatedEmployee);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> replaceEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        Employee replacedEmployee = this.service.replaceEmployee(id, employee);
+
+        return ResponseEntity.ok().body(replacedEmployee);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
-        this.repository.deleteById(id);
+        this.service.deleteEmployee(id);
 
         return ResponseEntity.noContent().build();
     }
